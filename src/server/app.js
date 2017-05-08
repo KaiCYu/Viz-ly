@@ -273,7 +273,6 @@ app.post('/upload', function(req, res) {
                   });
                 }
               })
-
               console.log('duplicates', dups);
               res.send([arrayOfObj, dups]);
             }

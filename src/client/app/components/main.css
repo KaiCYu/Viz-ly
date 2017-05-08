@@ -50,6 +50,7 @@ input[type="submit"] {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+  width: 1px;
 }
 
 .gridline path,
