@@ -339,7 +339,7 @@ export default class Charts extends React.Component {
         .friction(0.9);
 
       //sets color of the bubbles
-      var fillColor = d3.scale.category20()
+      var fillColor = d3.scale.category20();
         // .domain(['low', 'medium', 'high'])
         // .range(['#d84b2a', '#beccae', '#7aa25c']);
 
@@ -357,13 +357,11 @@ export default class Charts extends React.Component {
             word: d.key
           };
         });
-
         return myNodes;
       }
 
-       //function to add chart into the DOM
+      //function to add chart into the DOM
       var chart = function chart(selector, rawData) {
-        // console.log(selector);
         var maxAmount = d3.max(rawData, function (d) { return +d.count; });
         radiusScale.domain([0, maxAmount]);
 

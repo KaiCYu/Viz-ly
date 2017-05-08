@@ -3,14 +3,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
 
-
 var session = require('express-session');
 var db = require('./db/db');
 var User = db.User;
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var configAuth = require('../client/env/config'); // COMMENT OUT FOR DEPLOYMENT
-
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -120,7 +118,6 @@ var createObject = function(req, arrayStrings) {
 
 
 app.get('/userLoggedIn', function(req, res) {
-  // console.log('---------------------------', req.user);
   // db.addFakeUser(req);
   // var arrayOfObj = [];
   if (req.user) {
@@ -183,7 +180,6 @@ app.post('/upload', function(req, res) {
 
   var resultCount = 0;
 
-
   // FOR DEVELOPMENT
   var vision = gcloud.vision({
     projectId: 'vizly-161619',
@@ -200,13 +196,11 @@ app.post('/upload', function(req, res) {
   // });
 
   // console.log('db words!!!', req.user.words);
-  var arrayStrings = req.user.words;
   // var arrayStrings = [];
+  var arrayStrings = req.user.words || [];
   var pics = JSON.parse(req.user.pics);
 
   var dups = 0;
-
-  // var arrayStrings = [];
 
   for (var file = 0; file < sampleFile.length; file++) {
     console.log('sample file nameeeee', sampleFile[file].name);
@@ -221,9 +215,9 @@ app.post('/upload', function(req, res) {
       //dups++
       //continue
     (function(file) {
-      sampleFile[file].mv(__dirname + '/db/pic' + file + '.jpg',function(err) {
+      sampleFile[file].mv(__dirname + '/db/pic' + file + '.jpg', function(err) {
         if (err) {
-          console.log('Errormv', err)
+          console.log('Errormv', err);
           res.status(500).send(err);
         }
         console.log('file---------', file);
@@ -233,7 +227,7 @@ app.post('/upload', function(req, res) {
             res.status(500).send(err);
           } else {
             console.log('apires', apiResponse);
-            resultCount++
+            resultCount++;
             arrayStrings = arrayStrings.concat(result);
             pics[sampleFile[file].name] = true;
             console.log('result-------------', result);

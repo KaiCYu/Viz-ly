@@ -21,16 +21,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('componentWillMount fired!');
     $.ajax({
       url: '/userLoggedIn',
       type: 'GET',
       contentType: false,
       processData: false,
       success: (data) => {
-        console.log('ajax sent!', data);
+        // console.log('ajax sent!', data);
         this.setState({user: data[0], wordList: data[1]});
-        console.log(this.state.user);
+        // console.log(this.state.user);
       },
       error: function() {
         console.log('error');
@@ -38,13 +37,11 @@ class App extends React.Component {
     });
   }
 
-
-
   handleUpload(e) {
     e.preventDefault();
     this.setState({uploading: true, error: false, duplicates: false});
     var self = this;
-    console.log('handle upload!');
+    // console.log('handle upload!');
     var form = new FormData();
     var files = this.state.files;
     for (var i = 0; i < files.length; i++) {
@@ -63,7 +60,7 @@ class App extends React.Component {
       contentType: false,
       processData: false,
       success: function(data) {
-        console.log(data);
+        console.log('upload successful!');
         self.setState({wordList: data[0], uploading: false, duplicates: data[1] > 0});
       },
       error: function() {
@@ -76,7 +73,6 @@ class App extends React.Component {
     this.setState({files: e.target.files});
   }
   render () {
-    console.log('uploading?', this.state.uploading);
     if (this.state.user) {
       return (
         <div className='landing'>
